@@ -1058,7 +1058,7 @@ emilyFormal('afternoon');
 console.log(" ")//
 /////////////////////////////////
 // Lecture: let and const
-
+//Keep continue Mr gazibur rahman
 
 // ES5
 var name5 = 'Jane Smith';
