@@ -1,6 +1,7 @@
 /////////////////////////////////
 // Lecture: let and const
 
+//all these code are found in basic/script.js
 
 // ES5
 var name5 = 'Jane Smith';
