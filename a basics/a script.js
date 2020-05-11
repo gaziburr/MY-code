@@ -837,11 +837,7 @@ function reportStreets(s) {
 
 reportParks(allParks);
 reportStreets(allStreets);
-
-
-
-
-///* Variables and datatypes */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////* Variables and datatypes */
 var firstName = 'John';
 console.log(firstName);//John//
 
