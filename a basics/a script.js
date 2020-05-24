@@ -1,4 +1,195 @@
 
+console.log("(1)")
+/////////////////////////////
+// Lecture: Function constructor
+
+var Person = function (name, yearOfBirth, job) {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+}
+
+Person.prototype.calculateAge = function () {
+    console.log(2016 - this.yearOfBirth);//26 47 68
+};
+
+Person.prototype.scientificName ="homo sapiens";
+
+var john = new Person('John', 1990, 'teacher');
+var jane = new Person('Jane', 1969, 'designer');
+var mark = new Person('Mark', 1948, 'retired');
+
+john.calculateAge();//26
+jane.calculateAge();//47
+mark.calculateAge();//68
+
+console.log(john.scientificName);//homosapiens
+console.log(jane.scientificName);//homosapiens
+console.log(mark.scientificName);//homosapiens
+
+
+console.log("(2) ")//
+/////////////////////////////
+// Lecture: Object.create
+
+var personProto = {
+    calculateAge: function () {
+        console.log(2016 - this.yearOfBirth);//26
+    }
+};
+
+var john = Object.create(personProto);
+john.name = 'John';
+john.yearOfBirth = 1990;
+john.job = 'teacher';
+john.calculateAge()//26
+
+var jane = Object.create(personProto, {
+    name: { value: 'Jane' },
+    yearOfBirth: { value: 1969 },
+    job: { value: 'designer' }
+});
+console.log(" (3)")//
+
+
+/////////////////////////////
+
+
+// Lecture: Primitives vs objects
+var a = 23;
+var b = a;
+a = 46;
+console.log(a);//46
+console.log(b);//23
+// Objects
+var obj3 = {
+    name: 'John',
+    age: 26
+};
+var obj2 = obj3;
+obj3.age = 30;
+console.log(obj3.age);//30
+console.log(obj2.age);//30
+// Functions
+var age = 27;
+var obj3 = {
+    name: 'Jonas',
+    city: 'Lisbon'
+};
+function change(a, b) {
+    a = 30;
+    b.city = 'San Francisco';
+}
+
+change(age, obj3);
+
+console.log(age);//27
+console.log(obj3.city);//San Francisco
+////////passing functions as argument
+
+
+var Gazibur = {
+    family: ["Mofiz uddin", "Johura maya", "jayeda", "Asmina", "Halima", "Jiabur", "Motibur", "Hifjur", "Azizul", "Gazibur "],
+    familyBirthYear: [1959, 1967, 1982, 1985, 1987, 1986, 1990, 1992, 1995, 1999],
+    familyAges: [], //This array is filled by callback function(function as an arguement) below  by Gazibur .
+    pensiontime: [], //This array is filled by callback function(function as an arguement) below  by Gazibur .
+    isMarried: [], //This array is filled by callback function(function as an arguement) below  by Gazibur .
+    Job: "student"
+};
+// call back functions
+
+function AgeCalc(arr, fn) {
+    let ages = Gazibur.familyAges;
+    for (var i = 0; i < arr.length; i++) { //looping over an array(arr)
+        ages.push(fn(arr[i]));
+    }
+    return ages;
+}
+
+function familyage(el) {
+    var age = 2020 - el;
+    return age;
+}
+var bornyear = Gazibur.familyBirthYear
+AgeCalc(bornyear, familyage);
+
+function pensionyear(arr, fn) {
+    var pensionAge = Gazibur.pensiontime
+    for (var i = 0; i < arr.length; i++) { //looping
+        pensionAge.push(fn(arr[i]));
+    }
+    return pensionAge;
+}
+
+function pension(index) {
+    var cal = 60 - index;
+    return cal;
+}
+var isMarried = Gazibur.isMarried
+
+function Married(arr, fn) {
+    for (var i = 0; i < ages.length; i++) {
+        isMarried.push(fn(arr[i]))
+    }
+}
+
+function name(el) {
+    if (el >= 25) {
+        return true
+    } else {
+        return false
+    }
+}
+var ages = Gazibur.familyAges
+pensionyear(ages, pension);
+Married(ages, name)
+console.log(Gazibur.isMarried)
+console.log(Gazibur.pensiontime)
+console.log(ages)
+console.table(Gazibur)
+console.log(" (4)")//
+// Lecture: The this keyword
+//console.log(this);
+
+calculateAge(1985);
+
+function calculateAge(year) {
+    console.log(2016 - year);
+    console.log(this);
+}
+
+var john = {
+    name: 'John',
+    yearOfBirth: 1990,
+    calculateAge: function() {
+        console.log(this);
+        console.log(2016 - this.yearOfBirth);
+        
+        function innerFunction() {
+            console.log(this);
+        }
+        innerFunction();
+    }
+}
+
+john.calculateAge();
+
+var mike = {
+    name: 'Mike',
+    yearOfBirth: 1984
+};
+
+
+mike.calculateAge = john.calculateAge;
+mike.calculateAge();
+
+
+
+
+
+
+console.log("(5)")
+
 /////////////////////////////
 // Lecture: Functions returning functions
 
@@ -32,7 +223,7 @@ interviewQuestion('teacher')('John');
 interviewQuestion('teacher')('Mark');
 
 
-console.log(" ")//
+console.log(" (6)")//
 
 /////////////////////////////
 // Lecture: IIFE
@@ -58,8 +249,40 @@ game();
 })(5);
 
 
+//console.log(this);
 
-console.log(" ")//
+calculateAge(1985);
+
+function calculateAge(year) {
+    console.log(2016 - year);
+    console.log(this);
+}
+
+var john = {
+    name: 'John',
+    yearOfBirth: 1990,
+    calculateAge: function() {
+        console.log(this);
+        console.log(2016 - this.yearOfBirth);
+        
+        function innerFunction() {
+            console.log(this);
+        }
+        innerFunction();
+    }
+}
+
+john.calculateAge();
+
+var mike = {
+    name: 'Mike',
+    yearOfBirth: 1984
+};
+
+
+mike.calculateAge = john.calculateAge;
+mike.calculateAge();
+console.log(" (7)")//
 
 /////////////////////////////
 // Lecture: Closures
@@ -85,9 +308,7 @@ retirementIceland(1990);
 
 //retirement(66)(1990);
 
-console.log(" ")//
-
-
+console.log(" (8)")//
 /////////////////////////////
 // Lecture: Bind, call and apply
 
@@ -126,10 +347,10 @@ johnFriendly('night');
 var emilyFormal = john.presentation.bind(emily, 'formal');
 emilyFormal('afternoon');
 
-console.log(" ")//
+
+console.log(" (9)")//
 /////////////////////////////////
 // Lecture: let and const
-
 
 // ES5
 var name5 = 'Jane Smith';
@@ -187,9 +408,7 @@ for (var i = 0; i < 5; i++) {
 console.log(i);//5
 
 
-console.log(" ")//
-
-
+console.log("(10) ")//
 /////////////////////////////////
 // Lecture: Blocks and IIFEs
 
@@ -211,8 +430,8 @@ console.log(c);//3
 
 //console.log(c);//
 
-console.log(" ")//
 
+console.log("(11) ")//
 /////////////////////////////////
 // Lecture: Strings
 
@@ -237,9 +456,52 @@ console.log(n.startsWith('j'));//false
 console.log(n.endsWith('Sm'));//false
 console.log(n.includes('oh'));//true
 console.log(`${firstname1} `.repeat(5));//John John John John John 
+console .log("(12.b)")
+//  common string methods
+var stringOne = "free code camp is the best place to learn"
+var stringTwo = "front end and back development"
+    // 1. charAt();
+console.log(stringOne.charAt(1));//r
+// charCodeAt
+console.log(stringOne.charCodeAt(1));//114
+// concat
+console.log(stringOne.concat(stringTwo));//free code camp is the best place to learn front end and back development"
+// startsWith()
+console.log(stringOne.startsWith('free'))//true
+    // endsWith
+console.log(stringOne.endsWith("learn"));//true
+// fromCharCode
+console.log(String.fromCharCode(114))//r
+    // includes
+console.log(stringTwo.includes('end'));//true
+// lastIndexOf
+console.log(stringTwo.lastIndexOf('end'));//6
+// match()
+console.log(stringTwo.match(/end/g));//end
+// repeat()
+console.log(stringOne.repeat(3));//free code camp is the best place to learnfree code camp is the best place to learnfree code camp is the best place to learn
+// replace()
+console.log(stringTwo.replace(/end/g, "end"));//front end and back development
+// search()
+console.log(stringTwo.search('end'));//6
+// slice()
+console.log(stringTwo.slice(2, 4));//on
+// split()
+// hellow how are you mr gazibur rahman
+console.log(stringOne.split(' '));//free,code,camp,is,the,best,place,to,learn
+// substr()
+console.log(stringTwo.substr(2, 4));//ont
+// substring()
+console.log(stringTwo.substring(2, 4));//on
+// toLowerCase()
+console.log(stringTwo.toLowerCase());//front end and back development
+// toUpperCase()
+console.log(stringTwo.toUpperCase());//FRONT END AND BACK END DEVELOPMENT
+// trim()
+var stringThree = "Subscribe now!";
+console.log(stringThree.trim());//Subscribe now!
 
-
-console.log(" ")//
+console.log(" (12)")//
 
 /////////////////////////////////
 // Lecture: Arrow functions
@@ -269,13 +531,13 @@ ages6 = years1.map((el, index) => {
 console.log(ages6);//(4) ["Age element 1: 30.", "Age element 2: 55.", "Age element 3: 38.", "Age element 4: 83."]
 
 
-console.log(" ")//
+console.log("(13) ")//
 
 /////////////////////////////////
-/* // Lecture: Arrow functions 2
+// {Lecture: Arrow functions 2
 
 //This code is executed in HTML file(body).
-
+window.onload=function(){
 // ES5
  var box5 = {
     color: 'green',
@@ -346,8 +608,8 @@ Person.prototype.myFriends6 = function (friends) {
 
 new Person('Mike').myFriends6(friends);
 
-
-console.log(" ")*/
+}
+console.log(" ")
 
 /////////////////////////////////
 // Lecture: Destructuring
@@ -380,13 +642,15 @@ console.log(age2);//30
 console.log(Retirement);//35
   
 
-console.log(" ")//
-/*
+console.log(" (14)")//
+
 /////////////////////////////////
 // Lecture: Arrays
 
 //This code is executed in HTML file(body).
 
+
+window.onload=function(){
 const boxes = document.querySelectorAll('.box');
 
 //ES5
@@ -438,9 +702,9 @@ console.log(ages.findIndex(cur => cur >= 18));//3
 console.log(ages.find(cur => cur >= 18));//21
 
 
-*/
-console.log(" ")//
+}
 
+console.log(" (15)")//
 /////////////////////////////////
 // Lecture: Spread operator
 
@@ -474,10 +738,7 @@ const all = [h, ...boxes1];
 
 // Array.from(all).forEach(cur => cur.style.color = 'purple');
 
-console.log(" ")//
-
-
-
+console.log(" (16)")
 /////////////////////////////////
 // Lecture: Rest parameters
 
@@ -527,8 +788,7 @@ function isFullAge6(limit, ...years) {
 isFullAge6(16, 1990, 1999, 1965, 2016, 1987);
 
 
-console.log(" ")//
-
+console.log("(17) ")//
 /////////////////////////////////
 // Lecture: Default parameters
 
@@ -558,11 +818,7 @@ function SmithPerson(firstName2, yearOfBirth, lastName2 = 'Smith', nationality =
 var john = new SmithPerson('John', 1990);
 var emily = new SmithPerson('Emily', 1983, 'Diaz', 'spanish');
 
-console.log(" ")//
-
-
-
-/////////////////////////////////
+console.log(" (18)")
 // Lecture: Maps
 
 const question = new Map();
@@ -599,8 +855,7 @@ for (let [key, value] of question.entries()) {
 const ans = parseInt(document.write('Write the correct answer'));
 console.log(question.get(ans === question.get('correct')));//Wrong, please try again!
 
-console.log(" ")//
-
+console.log(" (19)")//
 
 /////////////////////////////////
 // Lecture: Classes
@@ -642,7 +897,7 @@ const john6 = new Person6('John', 1990, 'teacher');
 
 Person6.greeting();
 
-console.log(" ")//
+console.log(" (20)")//
 
 
 
@@ -714,7 +969,7 @@ const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10);
 johnAthlete6.wonMedal();
 johnAthlete6.calculateAge();
 
-console.log(" ")//
+console.log(" (21)")//
 
 /////////////////////////////////
 // CODING CHALLENGE
@@ -837,7 +1092,13 @@ function reportStreets(s) {
 
 reportParks(allParks);
 reportStreets(allStreets);
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////* Variables and datatypes */
+
+
+
+console.log("(22)")
+///* Variables and datatypes */
+
+
 var firstName = 'John';
 console.log(firstName);//John//
 
@@ -857,13 +1118,14 @@ console.log(job);//Teacher//
 var _3years = 3;
 var johnMark = 'John and MArk';
 // var if = 23;
-/*
 
 
 
-console.log(" ")//
 
 
+
+
+console.log("(22) ")
 /*****************************
 * Variable mutation and type coercion
 */
@@ -889,11 +1151,7 @@ document .write(firstName + ' is a ' + age + ' year old ' + job + '. Is he marri
 var lastName = document .write('What is his last Name?');
 console.log(firstName + ' ' + lastName);//John //
 
-
-console.log(" ")//
-
-
-
+console.log(" (23)")
 /*****************************
 * Basic operators
 */
@@ -928,9 +1186,7 @@ console.log(typeof x);//undefined
 
 
 
-console.log(" ")//
-
-
+console.log(" (24)")//
 /*****************************
 * Operator precedence
 */
@@ -966,9 +1222,7 @@ console.log(x);//61
 
 
 
-console.log(" ")//
-
-
+console.log(" (25)")//
 
 /*****************************
 * If / else statements
@@ -1011,7 +1265,7 @@ if (BMIMark > BMIJohn) {
 
 
 
-console.log(" ")//
+console.log(" (26)")//
 
 
 
@@ -1034,7 +1288,7 @@ if (age < 13) {
 
 
 
-console.log(" ")//
+console.log(" (27)")//
 
 /*****************************
 * The Ternary Operator and Switch Statements
@@ -1086,7 +1340,7 @@ switch (true) {
         console.log(firstName + ' is a man.');//John is a man.
 }
 
-console.log(" ")//
+console.log(" (28)")//
 
 
 
@@ -1117,7 +1371,7 @@ if (height === '23') {
 
 
 
-console.log(" ")//
+console.log(" (29)")//
 /*****************************
 * Functions
 */
@@ -1150,7 +1404,7 @@ yearsUntilRetirement(1969, 'Jane');// Jane retires in 18 years.
 
 
 
-console.log(" ")//
+console.log(" (30)")//
 /*****************************
 * Function Statements and Expressions
 */
@@ -1179,7 +1433,7 @@ console.log(whatDoYouDo('retired', 'Mark'));//Mark does something else
 
 
 
-console.log(" ")//
+console.log(" (31)")//
 
 /*****************************
 * Arrays
@@ -1214,8 +1468,7 @@ console.log(john.indexOf(23));//-1
 var isDesigner = john.indexOf('designer') === -1 ? 'John is NOT a designer' : 'John IS a designer';
 console.log(isDesigner);//John IS a designer
 
-
-
+console .log("(32)")
 //function example:------
 function tipCalculator(bill) {
     var percentage;
@@ -1240,11 +1493,35 @@ bills[2] + tips[2]];
 
 console.log(tips, finalValues);//Array(3)0: 18.5999999999999981: 9.6000000000000012: 26.8length: 3__proto__: Array(0) Array(3)0: 142.61: 57.62: 294.8length: 3__proto__: Array(0)
 
-console.log(" ")//
-/*****************************
-* Objects and properties
-*/
 
+console.log("(32)")
+    /* SOME  POPULAR USEFULL ARRAY METHODS :--- */
+    var arr = ['a', 'b', 'c', 'd'];
+    // push()
+    arr.push('e');
+    console.log(arr);//a,b,c,d,e
+    var arr2 = ['g', 'q'];
+    // concat()
+    console.log(arr.concat(arr2))//a,b,c,d,e,g,q
+        // join()
+    console.log(arr.join('!'));//a!b!c!d!e
+    console.log(arr)//a,b,c,d,e
+    // reverse()
+    console.log(arr.reverse())//e,d,c,b,a
+    console.log(arr)//e,d,c,b,a
+        // shift()
+    console.log(arr.shift())//e
+    console.log(arr)//d,c,b,a
+        // unshift()
+    console.log(arr.unshift('p'))//5
+    console.log(arr)
+        // slice()
+        
+        
+        
+        
+        
+        
 // Object literal
 var john = {
     firstName: 'John',
@@ -1358,134 +1635,286 @@ for (var i = john.length - 1; i >= 0; i--) {
 console.log(" ")//
 
 
-/////////////////////////////
-// Lecture: Function constructor
-
-var Person = function (name, yearOfBirth, job) {
-    this.name = name;
-    this.yearOfBirth = yearOfBirth;
-    this.job = job;
-}
-
-Person.prototype.calculateAge = function () {
-    console.log(2016 - this.yearOfBirth);//26 47 68
-};
-
-Person.prototype.scientificName ="homo sapiens";
-
-var john = new Person('John', 1990, 'teacher');
-var jane = new Person('Jane', 1969, 'designer');
-var mark = new Person('Mark', 1948, 'retired');
-
-john.calculateAge();//26
-jane.calculateAge();//47
-mark.calculateAge();//68
-
-console.log(john.scientificName);//homosapiens
-console.log(jane.scientificName);//homosapiens
-console.log(mark.scientificName);//homosapiens
 
 
-console.log(" ")//
-/////////////////////////////
-// Lecture: Object.create
 
-var personProto = {
-    calculateAge: function () {
-        console.log(2016 - this.yearOfBirth);//26
-    }
-};
 
-var john = Object.create(personProto);
-john.name = 'John';
-john.yearOfBirth = 1990;
-john.job = 'teacher';
-john.calculateAge()//26
 
-var jane = Object.create(personProto, {
-    name: { value: 'Jane' },
-    yearOfBirth: { value: 1969 },
-    job: { value: 'designer' }
+window .onload= function (){
+    const boxes = document.querySelectorAll('.box');
+
+//ES5
+var boxesArr5 = Array.prototype.slice.call(boxes);
+boxesArr5.forEach(function (cur) {
+    cur.style.backgroundColor = 'dodgerblue';
 });
-console.log(" ")//
+
+//ES6
+const boxesArr6 = Array.from(boxes);
+Array.from(boxes).forEach(cur => cur.style.backgroundColor = 'dodgerblue');
 
 
-/////////////////////////////
-// Lecture: Primitives vs objects
+//ES5
+for (var i = 0; i < boxesArr5.length; i++) {
 
-// Primitives
-var a = 23;
-var b = a;
-a = 46;
-console.log(a);//46
-console.log(b);//23
-
-
-// Objects
-var obj3 = {
-    name: 'John',
-    age: 26
-};
-var obj2 = obj3;
-obj3.age = 30;
-console.log(obj3.age);//30
-console.log(obj2.age);//30
-
-// Functions
-var age = 27;
-var obj3 = {
-    name: 'Jonas',
-    city: 'Lisbon'
-};
-
-function change(a, b) {
-    a = 30;
-    b.city = 'San Francisco';
-}
-
-change(age, obj3);
-
-console.log(age);//27
-console.log(obj3.city);//San Francisco
-console.log(" ")//
-
-
-
-
-////////passing functions as argument
-var years = [1990, 1965, 1937, 2005, 1998, 1994];
-function arrayCalc(arr, fn) {
-    var arrRes = [];
-    for (var i = 0; i < arr.length; i++) {
-        arrRes.push(fn(arr[i]))
+    if (boxesArr5[i].className === 'box blue') {
+        continue;
     }
-    return arrRes;
+
+    boxesArr5[i].textContent = 'I changed to blue!';
+
 }
-function calculateAge(el) {
-    return 2016 - el //you can suppose anything you want(el)
-}
-var ages = arrayCalc(years, calculateAge)
-console.log(ages)//(6) [26, 51, 79, 11, 18, 22]
 
 
-function isFullAges(el) {
-    return el >= 18
-}
-var FullAge = arrayCalc(years, isFullAges)
-console.log(FullAge)//(6) [true, true, true, true, true, true]
-
-
-
-function maxHeartRate(el) {
-    if (el >= 18 && el <= 81) {
-        return Math.round(206.9 - (0.67 * el))
-    } else {
-        return -1;
+//ES6
+for (const cur of boxesArr6) {
+    if (cur.className.includes('blue')) {
+        continue;
     }
+    cur.textContent = 'I changed to blue!';
 }
 
-var rates = arrayCalc(ages, maxHeartRate);
-console.log(rates)//(6) [189, 173, 154, -1, 195, 192]
 
-console.log(" ")//
+//ES5
+var ages = [12, 17, 8, 21, 14, 11];
 
+var full = ages.map(function (cur) {
+    return cur >= 18;
+});
+console.log(full);//(6) [false, false, false, true, false, false]
+
+console.log(full.indexOf(true));//3
+console.log(ages[full.indexOf(true)]);//21
+
+
+//ES6
+console.log(ages.findIndex(cur => cur >= 18));//3
+console.log(ages.find(cur => cur >= 18));//21
+
+
+        
+            // Lecture: Arrow functions 2
+
+
+
+
+// // EXAMINE THE DOCUMENT OBJECT
+
+ console.dir(document);
+console.log(document.domain);
+ console.log(document.URL);
+console.log(document.title);
+ document.title = 123;
+console.log(document.doctype);
+console.log(document.head);
+ console.log(document.body);
+console.log(document.all);
+ console.log(document.all[10]);
+document.all[10].textContent = 'Hello';
+ console.log(document.forms[0]);
+ console.log(document.links);
+console.log(document.images);
+
+// // GETELEMENTBYID
+ console.log(document.getElementById('header-title'));
+ var headerTitle = document.getElementById('header-title');
+ var header = document.getElementById('main-header');
+ console.log(headerTitle);
+ headerTitle.textContent = 'Hello';
+headerTitle.innerText = 'Goodbye';
+ console.log(headerTitle.innerText);
+ headerTitle.innerHTML = '<h3>Hello</h3>';
+header.style.borderBottom = 'solid 3px #000';
+
+// // GETELEMENTSBYCLASSNAME //
+var items = document.getElementsByClassName('list-group-item');
+ console.log(items);
+  console.log(items[1]);
+ items[1].textContent = 'Hello 2';
+items[1].style.fontWeight = 'bold';
+ items[1].style.backgroundColor = 'yellow';
+
+// // Gives error
+// //items.style.backgroundColor = '#f4f4f4';
+
+ for (var i = 0; i < items.length; i++) {
+     items[i].style.backgroundColor = '#f4f4f4';
+ }
+
+// // GETELEMENTSBYTAGNAME //
+ var li = document.getElementsByTagName('li');
+ console.log(li);
+ console.log(li[1]);
+ li[1].textContent = 'Hello 2';
+ li[1].style.fontWeight = 'bold';
+ li[1].style.backgroundColor = 'yellow';
+
+// // Gives error
+//items.style.backgroundColor = '#f4f4f4';
+
+for (var i = 0; i < li.length; i++) {
+    li[i].style.backgroundColor = '#f4f4f4';
+}
+
+// // QUERYSELECTOR //
+ var header = document.querySelector('#main-header');
+header.style.borderBottom = 'solid 4px #ccc';
+
+ var input = document.querySelector('input');
+input.value = 'Hello World'
+
+ var submit = document.querySelector('input[type="submit"]');
+ submit.value = "SEND"
+
+ var item = document.querySelector('.list-group-item');
+ item.style.color = 'red';
+
+ var lastItem = document.querySelector('.list-group-item:last-child');
+ lastItem.style.color = 'blue';
+
+ var secondItem = document.querySelector('.list-group-item:nth-child(2)');
+secondItem.style.color = 'coral';
+
+// // QUERYSELECTORALL //
+var titles = document.querySelectorAll('.title');
+
+ console.log(titles);
+titles[0].textContent = 'Hello';
+
+var odd = document.querySelectorAll('li:nth-child(odd)');
+ var even = document.querySelectorAll('li:nth-child(even)');
+
+for (var i = 0; i < odd.length; i++) {
+   odd[i].style.backgroundColor = '#f4f4f4';
+    even[i].style.backgroundColor = '#ccc';
+ }
+
+
+
+// // TRAVERSING THE DOM
+ var itemList = document.querySelector('#items');
+// // parentNode 
+
+ console.log(itemList.lastChild);
+ // lastElementChild
+console.log(itemList.lastElementChild);
+itemList.lastElementChild.textContent = 'Hello 4';
+
+// // nextSibling
+console.log(itemList.nextSibling);
+// // nextElementSibling
+console.log(itemList.nextElementSibling);
+
+// // previousSibling
+console.log(itemList.previousSibling);
+//previousElementSibling
+ itemList.previousElementSibling.textContent = 'MY name is gazibur rahman ha ha ha ';
+console.log(itemList.previousElementSibling);
+
+// // createElement
+
+// Create a div
+var newDiv = document.createElement('div');
+
+// Add class
+newDiv.className = 'hello';
+
+// Add id
+newDiv.id = 'hello1';
+
+// Add attr
+newDiv.setAttribute('title', 'Hello Div');
+console.log(newDiv.attributes)
+    // Create text node
+var newDivText = document.createTextNode('Hello World');
+
+// Add text to div
+newDiv.appendChild(newDivText);
+
+var container = document.querySelector('header .container');
+var h1 = document.querySelector('header h1');
+
+console.log(newDiv);
+
+newDiv.style.fontSize = '30px';
+
+container.insertBefore(newDiv, h1);
+
+// // EVENTS //
+
+var button = document.getElementById('button').addEventListener('click', buttonClick);
+
+function buttonClick(e) {
+    console.log('Button clicked');
+    document.getElementById('header-title').textContent = 'Changed';
+     document.querySelector('#main').style.backgroundColor = '#f4f4f4';
+    console.log(e);
+
+    console.log(e.target);
+     console.log(e.target.id);
+     console.log(e.target.className);
+     console.log(e.target.classList);
+     var output = document.getElementById('output');
+   output.innerHTML = '<h3>' + e.target.id + '</h3>';
+
+     console.log(e.type);
+
+     console.log(e.clientX);
+     console.log(e.clientY);
+
+   console.log(e.offsetX);
+     console.log(e.offsetY);
+
+   console.log(e.altKey);
+    console.log(e.ctrlKey);
+    console.log(e.shiftKey);
+ }
+
+ var button = document.getElementById('button');
+var box = document.getElementById('box');
+
+button.addEventListener('click', runEvent);
+button.addEventListener('dblclick', runEvent);
+button.addEventListener('mousedown', runEvent);
+ button.addEventListener('mouseup', runEvent);
+
+ box.addEventListener('mouseenter', runEvent);
+ box.addEventListener('mouseleave', runEvent);
+
+box.addEventListener('mouseover', runEvent);
+ box.addEventListener('mouseout', runEvent);
+
+ box.addEventListener('mousemove', runEvent);
+
+var itemInput = document.querySelector('input[type="text"]');
+var form = document.querySelector('form');
+var select = document.querySelector('select');
+
+itemInput.addEventListener('keydown', runEvent);
+ itemInput.addEventListener('keyup', runEvent);
+ itemInput.addEventListener('keypress', runEvent);
+
+ itemInput.addEventListener('focus', runEvent);
+ itemInput.addEventListener('blur', runEvent);
+
+itemInput.addEventListener('cut', runEvent);
+itemInput.addEventListener('paste', runEvent);
+
+ itemInput.addEventListener('input', runEvent);
+select.addEventListener('change', runEvent);
+ select.addEventListener('input', runEvent);
+
+form.addEventListener('submit', runEvent);
+ function runEvent(e) {
+    e.preventDefault();
+  console.log('EVENT TYPE: ' + e.type);
+
+   console.log(e.target.value);
+    document.getElementById('output').innerHTML = '<h3>' + e.target.value + '</h3>';
+
+    output.innerHTML = '<h3>MouseX: ' + e.offsetX + ' </h3><h3>MouseY: ' + e.offsetY + '</h3>';
+
+    document.body.style.backgroundColor = "rgb(" + e.offsetX + "," + e.offsetY + ", 40)";
+ }
+
+}
