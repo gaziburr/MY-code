@@ -1,5 +1,5 @@
 
-window.onload = function () {
+  
   console.log("(1)");
   /////////////////////////////
   // Lecture: Function constructor
@@ -2902,5 +2902,4 @@ form.addEventListener('submit', runEvent);
     document.body.style.backgroundColor = "rgb(" + e.offsetX + "," + e.offsetY + ", 40)";
  }
 
-}
->>>>>>> e6cfa88d11cd4d5640a9e960e85b8d45e74a1747
+
