@@ -1,5 +1,5 @@
 
-  
+  alert("hello")
   console.log("(1)");
   /////////////////////////////
   // Lecture: Function constructor
